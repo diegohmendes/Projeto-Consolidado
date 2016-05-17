@@ -1,0 +1,7 @@
+.table-new-user {
+	
+}
+
+.table-new-user th:last-child {
+	width: 120px;
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>FiescFrotas</display-name>
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>br.com.fiescfrotas.autenticacao.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Jersey RESTful</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <param-value>br.com.fiescfrotas.rest;br.com.fiescfrotas.cadastro;com.wordnik.swagger.jersey.listing</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>JerseyJaxrsConfig</servlet-name>
+    <servlet-class>com.wordnik.swagger.jersey.config.JerseyJaxrsConfig</servlet-class>
+    <init-param>
+      <param-name>api.version</param-name>
+      <param-value>1.0.0</param-value>
+    </init-param>
+    <init-param>
+      <param-name>swagger.api.basepath</param-name>
+      <param-value>http://localhost:8080/fiescfrotas/rest</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jersey RESTful</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+	
+  <!-- Filtro conexao --> 
+  <filter>
+    <filter-name>FiltroConexao</filter-name>
+    <filter-class>br.com.fiescfrotas.filtro.FiltroConexao</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>FiltroConexao</filter-name>
+    <url-pattern>/resources/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- Filtro autorização -->
+  <!-- <filter>
+    <filter-name>FiltroAutorizacao</filter-name>
+    <filter-class>br.com.fiescfrotas.filtro.FiltroAutorizacao</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>FiltroAutorizacao</filter-name>
+    <url-pattern>/rest/*</url-pattern>
+  </filter-mapping -->
+  
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>/login.html</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/template/pages/examples/404.html</location>
+  </error-page>
+  <error-page>
+    <error-code>405</error-code>
+    <location>/template/pages/examples/405.html</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/template/pages/examples/500.html</location>
+  </error-page>
+</web-app>

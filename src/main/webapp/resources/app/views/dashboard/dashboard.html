@@ -1,0 +1,150 @@
+<link rel="stylesheet" href="app/views/dashboard/dashboard.css">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>{{title}}</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+			<li class="active">Título da Página</li>
+		</ol>
+	</section>
+
+	<section class="content">
+		<div class="row">
+			<!-- Agendamentos Para Aprovação -->
+			<section class="col-lg-12 connectedSortable" ng-if="perfil == '1' || perfil == '2' && listAgendamentoAprovacao != null">
+				<div class="box">
+					
+					<div class="box-header">
+						<i class="fa fa-calendar"></i> <h3 class="box-title">Agendamentos Pendentes</h3>
+					</div><!-- /.box-header -->
+					
+					<div class="box-body no-padding">
+						<table class="table table-striped table-new-user">
+							<tr>
+								<th>Usuário</th>
+								<th>Unidade</th>
+								<th>Carro</th>
+								<th>Horário de Saída</th>
+								<th>Horário de Entrada</th>
+								<th>Aprovação</th>
+							</tr>
+							<tr ng-repeat="agendamento in listAgendamentoAprovacao">
+								<td>{{ agendamento.usuario.nome }}</td>
+								<td>{{ agendamento.usuario.unidade.nome }}</td>
+								<td>{{ agendamento.veiculo.modelo }} - {{ agendamento.veiculo.placa }}</td>
+								<td>{{ agendamento.previsaoSaida | date:'dd/MM/yyyy HH:mm' }}</td>
+								<td>{{ agendamento.previsaoEntrada | date:'dd/MM/yyyy HH:mm' }}</td>
+								<td>
+									<button class="btn btn-success" ng-click="aprovarAgendamento(1, agendamento)">
+										<span class="glyphicon glyphicon-ok"></span>
+									</button>
+									<button class="btn btn-danger" ng-click="aprovarAgendamento(0, agendamento)">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div><!-- /.box-body -->
+					
+				</div>
+			</section><!-- Fim Agendamentos Para Aprovação -->
+			
+			<!-- Novos Usuários -->
+			<section class="col-lg-6 connectedSortable" ng-if="perfil == '1' || perfil == '2' && listUsuario != null">
+				<div class="box">
+					
+					<div class="box-header">
+						<i class="fa fa-users"></i>
+						<h3 class="box-title">Novos Usuários</h3>
+					</div><!-- /.box-header -->
+					
+					<div class="box-body no-padding">
+						<table class="table table-striped table-new-user">
+							<tr>
+								<th>Nome</th>
+								<th>Unidade</th>
+								<th>Aprovação</th>
+							</tr>
+							<tr ng-repeat="usuario in listUsuario">
+								<td>{{ usuario.nome }}</td>
+								<td>{{ usuario.unidade.nome }}</td>
+								<td>
+									<button class="btn btn-success">
+										<span class="glyphicon glyphicon-ok" ng-click="aprovarUsuario(1, usuario)"></span>
+									</button>
+									<button class="btn btn-danger">
+										<span class="glyphicon glyphicon-remove" ng-click="aprovarUsuario(0, usuario)"></span>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div><!-- /.box-body -->
+					
+				</div>
+			</section><!-- Fim Novos Usuários -->
+			
+			<!-- Carros Disponíveis -->
+			<section class="col-lg-6 connectedSortable">
+				<div class="box">
+					
+					<div class="box-header">
+						<i class="fa fa-car"></i>
+						<h3 class="box-title">Carros disponíveis</h3>
+					</div><!-- /.box-header -->
+					
+					<div class="box-body no-padding">
+						<table class="table table-striped">
+							<tr>
+								<th style="width: 10px"></th>
+								<th>Carro</th>
+								<th>Agendar</th>
+							</tr>
+							<tr ng-repeat="veiculo in listVeiculos">
+								<td><!-- <img class="direct-chat-img" src="../assets/img/corsa_quadrado.jpg" alt="User Avatar"> --></td>
+								<td>{{ veiculo.modelo }} - {{ veiculo.placa }}</td>
+								<td>
+									<button class="btn btn-success">
+										<span class="glyphicon glyphicon-ok"></span>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div><!-- /.box-body -->
+					
+				</div>
+			</section><!-- Fim Carros Disponíveis -->
+			
+			<!-- Seus Agendamentos -->
+			<div class="col-lg-6 connectedSortable">
+				<div class="box">
+					
+					<div class="box-header">
+						<h3 class="box-title">Seus Agendamentos</h3>
+					</div><!-- /.box-header -->
+					
+					<div class="box-body no-padding">
+						<table class="table table-striped">
+							<tr>
+								<th></th>
+								<th>Modelo</th>
+								<th>Horário de Saída</th>
+								<th>Horário de Retorno</th>
+							</tr>
+							<tr ng-repeat="agendamento in listAgendamentoUsuario">
+								<td><!-- <img class="direct-chat-img" src="../assets/img/corsa_quadrado.jpg" alt="User Avatar"> --></td>
+								<td>{{ agendamento.veiculo.modelo }} - {{ agendamento.veiculo.placa }}</td>
+								<td>{{ agendamento.previsaoSaida | date:'dd/MM/yyyy HH:mm' }}</td>
+								<td>{{ agendamento.previsaoEntrada | date:'dd/MM/yyyy HH:mm' }}</td>
+							</tr>
+						</table>
+					</div><!-- /.box-body -->
+					
+				</div>
+			</div><!-- Fim Seus Agendamentos -->
+		
+		</div><!-- Close row -->
+	</section>
+</div><!-- /.content-wrapper -->

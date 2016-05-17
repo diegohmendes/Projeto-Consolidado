@@ -1,0 +1,77 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>{{title}}</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+			<li class="active">{{ tittle }}</li>
+		</ol>
+	</section>
+	
+	<section class="content">
+		<div class="row">
+			
+			<div class="col-md-12" ng-repeat="unidade in listUnidade">
+				<div class="box box-success">
+					<div class="box-header box-default collapsed-border">
+						
+						<h3 class="box-title">{{ unidade.nome }}</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse">
+								<i class="fa fa-plus"></i>
+							</button>
+						</div><!-- /.box-tools -->
+						
+					</div><!-- /.box-header -->
+					
+					<div class="box-body">
+						<div class="col-md-4" ng-repeat="veiculo in listVeiculo" ng-if="veiculo.codUnidade == unidade.codigo">
+							<div class="box box-widget widget-user">
+								
+								<div class="widget-user-header bg-green-active">
+									<h3 class="widget-user-username">{{veiculo.modelo}}</h3>
+									<h5 class="widget-user-desc">{{veiculo.placa}}</h5>
+								</div>
+								
+								<div class="widget-user-image">
+									<img class="img-circle" src="../assets/img/corsa_quadrado.jpg" alt="User Avatar">
+								</div>
+								
+								<div class="box-footer">
+									<div class="row">
+										
+										<div class="col-sm-4 border-right">
+											<div class="description-block">
+												<h5 class="description-header" ng-if="veiculo.status == '1'">Disponível</h5>
+												<h5 class="description-header" ng-if="veiculo.status == '0'">Locado</h5>
+												<small>{{usuario.Nome}}</small>
+											</div><!-- /.description-block -->
+										</div><!-- /.col -->
+										
+										<div class="col-sm-4 border-right">
+											<div class="description-block">
+												<h5 class="description-header">Até</h5>
+												<small>{{usuario.dataSaida}}</small>
+											</div><!-- /.description-block -->
+										</div><!-- /.col -->
+										
+										<div class="col-sm-4">
+											<div class="icon">
+												<a id="cadastrarAgendamento"><i class="addicon"></i></a>
+											</div>
+										</div><!-- /.col -->
+									
+									</div><!-- /.row -->
+									
+								</div>
+							</div><!-- /.widget-user -->
+							
+						</div>
+					</div>
+				</div>
+			</div> <!-- / ng-repeat - listUnidade -->
+			
+		</div><!-- /.row -->
+	</section><!-- /.content -->
+</div><!-- /.content-wrapper -->
